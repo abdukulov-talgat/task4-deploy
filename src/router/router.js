@@ -10,12 +10,14 @@ const {isValidEmail, b64EncodeUnicode, isCorrectToken} = require("../utils");
 const htmlPath = path.resolve(path.resolve(__dirname, '../static/index.html'));
 
 
-router.get('/', async (req, res) => {
-  res.sendFile(htmlPath);
-});
+router.use('/api', apiRouter);
+
 
 router.get('/login', async (req, res) => {
   const {token} = req.query;
+  if(typeof token !== 'string'){
+    return next();
+  }
   const isCorrect = await isCorrectToken(token);
 
   if (isCorrect) {
@@ -88,7 +90,9 @@ router.post('/register', async (req, res) => {
   res.json({token: b64EncodeUnicode(newUser.email)});
 });
 
-router.use('/api', apiRouter);
 
+router.get('*', async (req, res) => {
+  res.sendFile(htmlPath);
+});
 
 module.exports = router
