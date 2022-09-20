@@ -13,7 +13,7 @@ const htmlPath = path.resolve(path.resolve(__dirname, '../static/index.html'));
 router.use('/api', apiRouter);
 
 
-router.get('/login', async (req, res) => {
+router.get('/login', async (req, res, next) => {
   const {token} = req.query;
   if(typeof token !== 'string'){
     return next();
