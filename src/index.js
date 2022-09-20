@@ -5,7 +5,7 @@ const sequelize = require('./db.js');
 const router = require('./router/router.js');
 const path = require("path");
 const app = express();
-const port = 3001;
+const port = 3000;
 
 
 app.use('/static', express.static(path.resolve(__dirname, 'static')));
